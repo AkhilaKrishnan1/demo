@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+patient_appointment.access_patient_appointment,access_patient_appointment,patient_appointment.model_patient_appointment,base.group_user,1,1,1,1
+patient_appointment.access_doctor_doctor,access_doctor_doctor,patient_appointment.model_doctor_doctor,base.group_user,1,1,1,1
+patient_appointment.access_doctor_speciality,access_doctor_speciality,patient_appointment.model_doctor_speciality,base.group_user,1,1,1,1
+patient_appointment.access_time_slot,access_time_slot,patient_appointment.model_time_slot,base.group_user,1,1,1,1
+

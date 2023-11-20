@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="patient_appointment_form_view" model="ir.ui.view">
+        <field name="name">patient.appointment.form.view</field>
+        <field name="model">patient.appointment</field>
+        <field name="arch" type="xml">
+            <from>
+                <sheet>
+                    <h1>
+                        <field name="appointment_id" nolabel="1"/>
+                    </h1>
+                    <group>
+                        <field name="patient"/>
+                        <field name="age"/>
+                        <field name="gender"/>
+                        <field name="place"/>
+                        <field name="doctor" widget="many2one_tags"/>
+                        <field name="speciality" widget="many2one_tags"/>
+                        <field name="phone"/>
+                        <field name="email"/>
+                        <field name="slot" widget="many2one_tags"/>
+                        <field name="date"/>
+                    </group>
+                </sheet>
+            </from>
+        </field>
+    </record>
+    <record id="patient_appointment_tree_view" model="ir.ui.view">
+        <field name="name">patient.appointment.tree.view</field>
+        <field name="model">patient.appointment</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="appointment_id"/>
+                <field name="patient"/>
+                <field name="gender"/>
+                <field name="place"/>
+                <field name="doctor" widget="many2one_tags"/>
+                <field name="speciality" widget="many2one_tags"/>
+                <field name="date"/>
+                <field name="slot" widget="many2one_tags"/>
+                <field name="phone"/>
+                <field name="email"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="menu_patient_appointment" model="ir.actions.act_window">
+        <field name="name">Patient Appointment</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">patient.appointment</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="patient_appointment_root"
+              name="Patient Appointment"
+              action="menu_patient_appointment"
+              sequence="17"
+              />
+
+    <record id="appointment_menu" model="ir.actions.act_window">
+        <field name="name">Appointment</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">patient.appointment</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="sub_menu_patient_appointment"
+              name="Appointment"
+              parent="patient_appointment_root"
+              action="appointment_menu"
+              />
+
+    <record id="doctor_form" model="ir.ui.view">
+        <field name="name">doctor_form</field>
+        <field name="model">doctor.doctor</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="phone"/>
+                        <field name="gender"/>
+                        <field name="email"/>
+                        <field name="license"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="doctor_tree" model="ir.ui.view">
+        <field name="name">doctor_tree</field>
+        <field name="model">doctor.doctor</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="gender"/>
+                <field name="email"/>
+                <field name="license"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="doctor_action" model="ir.actions.act_window">
+        <field name="name">Doctor</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">doctor.doctor</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="doctor_menu_item"
+              name="Doctor"
+              parent="patient_appointment_root"
+
+    />
+    <menuitem id="sub_doctor_menu"
+              name="Doctor"
+              parent="doctor_menu_item"
+              action="doctor_action"
+              />
+
+    <record id="speciality_form" model="ir.ui.view">
+        <field name="name">speciality_form</field>
+        <field name="model">doctor.speciality</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="speciality"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="speciality_tree" model="ir.ui.view">
+        <field name="name">speciality_tree</field>
+        <field name="model">doctor.speciality</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="speciality"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_speciality" model="ir.actions.act_window">
+        <field name="name">Speciality</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">doctor.speciality</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="sub_speciality_menu2"
+              name="Speciality"
+              parent="doctor_menu_item"
+              action="action_speciality"
+              />
+
+    <record id="slot_form" model="ir.ui.view">
+        <field name="name">slot_form</field>
+        <field name="model">time.slot</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="time_slot"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="slot_tree" model="ir.ui.view">
+        <field name="name">slot_tree</field>
+        <field name="model">time.slot</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="time_slot"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_slot" model="ir.actions.act_window">
+        <field name="name">Time Slot</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">time.slot</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="sub_slot_menu"
+              name="Time Slot"
+              parent="doctor_menu_item"
+              action="action_slot"
+              />
+</odoo>

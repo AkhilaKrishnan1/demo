@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="dr_appointment" name="Doctor Appointment">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <div class="container">
+                    <form class="form-horizontal" role="form" action="/create/doctor" method="POST">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <div class="form-group">
+                            <label for="speciality" class="col-form-label col-sm-auto s_website_form_label">Select
+                                Speciality *
+                            </label>
+                            <select name="speciality" class="form-control link style" style="width:600px;height:35px;">
+                                <option> </option>
+                                <t t-foreach="speciality_rec" t-as="speciality">
+                                    <option t-esc="speciality.speciality"
+                                            t-att-value="speciality.id"/>
+                                </t>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="doctor" class="col-form-label col-sm-auto s_website_form_label">Doctor *</label>
+                            <select name="doctor" class="form-control link style" style="width:600px;height:35px;">
+                                <option> </option>
+                                <t t-foreach="doctor_rec" t-as="doctor">
+                                    <option t-esc="doctor.name"
+                                            t-att-value="doctor.id"/>
+                                </t>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="date" class="col-form-label col-sm-auto s_website_form_label">Appointment Date :</label>
+                            <input type="date" name="date" t-att-value="date" id="date"
+                                   class="form-control s_website_form_input" style="width:200px;height:30px;"/>
+                        </div>
+
+                        <div>
+                            <label for="slot" class="col-form-label col-sm-auto s_website_form_label"> Select Slot :</label>
+                            <select name="slot" class="form-control link style" style="width:200px;height:35px;">
+                                <option> </option>
+                                <t t-foreach="slot_rec" t-as="slot">
+                                    <option t-esc="slot.time_slot"
+                                            t-att-value="slot.id"/>
+                                </t>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="patient" class="col-form-label col-sm-auto s_website_form_label">Patient Name :</label>
+                            <input type="text" name="patient" t-att-value="patient" id="patient"
+                                   class="form-control s_website_form_input" style="width:600px;height:30px;"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gender" class="col-form-label col-sm-auto s_website_form_label">Gender :</label>
+                            <select name="gender" class="form-control link style" style="width:600px;height:35px;">
+                                <option> </option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="age" class="col-form-label col-sm-auto s_website_form_label">Age :</label>
+                            <input type="text" name="age" t-att-value="age" id="age"
+                                   class="form-control s_website_form_input" style="width:600px;height:30px;"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="place" class="col-form-label col-sm-auto s_website_form_label">Place :</label>
+                            <input type="text" name="place" t-att-value="place" id="place"
+                                   class="form-control s_website_form_input" style="width:600px;height:30px;"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone" class="col-form-label col-sm-auto s_website_form_label">Phone Number</label>
+                            <input type="text" name="phone" t-att-value="phone" id="phone"
+                                   class="form-control s_website_form_input" style="width:600px;height:30px;"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="col-form-label col-sm-auto s_website_form_label">Email :</label>
+                            <input type="text" name="email" t-att-value="email" id="email"
+                                   class="form-control s_website_form_input" style="width:600px ;height:30px;"/>
+                        </div>
+
+                        <div class="mb-0 py-2 col-12 s_website_form_submit" data-name="Submit Button">
+                            <div style="width: 200px;" class="s_website_form_label"/>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <record id="thanks_page" model="website.page">
+        <field name="name">Thanks</field>
+        <field name="type">qweb</field>
+        <field name="url">/thank-you</field>
+        <field name="website_published">True</field>
+        <field name="key">patient_appointment.thanks_page</field>
+        <field name="arch" type="xml">
+            <t t-call="website.layout">
+                <div class="wrap">
+                    <div class="container">
+                        <h1 style="position:absolute;top:100px;">Thank You !</h1>
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <span style="position:absolute;top:180px;">
+                                    your appointment has been
+                                    <b>successfully registered</b>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </field>
+    </record>
+</odoo>

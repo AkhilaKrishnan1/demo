@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="appointment_id_sequence" model="ir.sequence">
+            <field name="name">Appointment Id</field>
+            <field name="code">patient.appointment.sequence</field>
+            <field name="prefix">HP/AP/00</field>
+            <field name="number_increment" eval="1"/>
+        </record>
+    </data>
+</odoo>
