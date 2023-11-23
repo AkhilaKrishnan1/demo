@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="doctor_form_view" model="ir.ui.view">
+        <field name="name">doctor.form.view</field>
+        <field name="model">doctor.details</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button-box" name="button_box">
+                        <button name="action_smart_appointment" type="object" class="oe_start_button" icon="fa-bars">
+                            <field name="appointment_count" class="o_start_value" string="Appointment"/>
+                            <span>Appointment</span>
+                        </button>
+                    </div>
+                    <h1>
+                        <field name="doctor_id" nolabel="1"/>
+                    </h1>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <group>
+                        <field name="name"/>
+                        <field name="phone"/>
+                        <field name="email"/>
+                        <field name="education_ids" widget="many2many_tags"/>
+                        <field name="license"/>
+                        <field name="speciality_ids" widget="many2one_tags"/>
+                        <field name="consultation_id" widget="many2one_tags"/>
+                        <field name="gender"/>
+                        <field name="hospital_ids" widget="many2many_tags"/>
+                        <field name="patient_count"/>
+                    </group>
+                    <notebook>
+                        <page string="Address" name="address">
+                            <form>
+                                <sheet>
+                                    <group>
+                                        <field name="address" placeholder="Street..."
+                                               style="position:absolute;left:130px;width:387px;"/>
+                                        <div class="o_address_format">
+                                            <field name="street2" placeholder="Street 2..." class="o_address_street"
+                                                   style="width:487px;"/>
+                                            <field name="city" placeholder="City" class="o_address_city"
+                                                   style="width:150px;"/>
+                                            <field name="state_ids" class="o_address_state" placeholder="State"
+                                                   style="position:absolute;left:200px;width:150px;"
+                                                   options="{'no_open': True, 'no_quick_create': True}"
+                                                   context="{'country_ids': country_ids, 'default_country_ids': country_ids, 'zip': zip}"/>
+                                            <field name="zip" placeholder="ZIP" class="o_address_zip"
+                                                   style="position:absolute;left:370px;width:150px;"/>
+                                            <field name="country_ids" placeholder="Country" class="o_address_country"
+                                                   style="width:490px;"
+                                                   options='{"no_open": True, "no_create": True}'/>
+                                        </div>
+                                    </group>
+                                </sheet>
+                            </form>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="doctor_item_tree" model="ir.ui.view">
+        <field name="name">doctor_item_tree</field>
+        <field name="model">doctor.details</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="doctor_id"/>
+                <field name="name"/>
+                <field name="hospital_ids"/>
+                <field name="phone"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="doctor_item_kanban" model="ir.ui.view">
+        <field name="name">doctor_item_kanban</field>
+        <field name="model">doctor.details</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="id"/>
+                <field name="name"/>
+                <field name="image"/>
+                <field name="speciality_ids"/>
+                <template>
+                    <t t-name="kanban-box">
+                        <div t-att-class="oe_kanban_global_click">
+                            <div class="o_kanban_image">
+                                <img alt="Avatar"
+                                     t-att-src="kanban_image('doctor.details','image',record.id.raw_value)"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong class="oe_kanban_record_title">
+                                    <field name="name"/>
+                                </strong>
+                                <div class="o_kanban_tags_section"/>
+                                <ul>
+                                    <li>Speciality:
+                                        <field name="speciality_ids"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </template>
+            </kanban>
+        </field>
+    </record>
+
+
+    <record id="menu_doctor" model="ir.actions.act_window">
+        <field name="name">Doctor</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">doctor.details</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+    <record id="sub_menu_doc" model="ir.actions.act_window">
+        <field name="name">Doctor</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">doctor.details</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="menu_doctor_root"
+              name="Doctor"
+              action="menu_doctor"
+              sequence="11"/>
+
+    <menuitem id="sub_menu_doctor"
+              name="Doctor"
+              parent="menu_doctor_root"
+              action="sub_menu_doc"/>
+
+
+    <record id="education_tree" model="ir.ui.view">
+        <field name="name">education_details</field>
+        <field name="model">education.details</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="education"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="education_form" model="ir.ui.view">
+        <field name="name">education_details</field>
+        <field name="model">education.details</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="education"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_education" model="ir.actions.act_window">
+        <field name="name">Education</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">education.details</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="config_menu"
+              name="Configuration"
+              parent="menu_doctor_root"
+    />
+
+    <menuitem id="sub_config_menu"
+              name="Education"
+              parent="config_menu"
+              action="action_education"
+    />
+
+    <record id="speciality_tree" model="ir.ui.view">
+        <field name="name">speciality_details</field>
+        <field name="model">speciality.details</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="speciality"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="speciality_form" model="ir.ui.view">
+        <field name="name">speciality_details</field>
+        <field name="model">speciality.details</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="speciality"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_speciality" model="ir.actions.act_window">
+        <field name="name">Speciality</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">speciality.details</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="sub_config_menu2"
+              name="Speciality"
+              parent="config_menu"
+              action="action_speciality"
+    />
+
+
+    <record id="hospital_tree" model="ir.ui.view">
+        <field name="name">hospital_list</field>
+        <field name="model">hospital.list</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="hospital"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="speciality_form" model="ir.ui.view">
+        <field name="name">hospital_list</field>
+        <field name="model">hospital.list</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="hospital"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hospital" model="ir.actions.act_window">
+        <field name="name">Hospital</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hospital.list</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="sub_config_menu3"
+              name="Hospital"
+              parent="config_menu"
+              action="action_hospital"
+    />
+
+
+    <record id="schedule_tree_view" model="ir.ui.view">
+        <field name="name">doctor_schedule_tree</field>
+        <field name="model">doctor.schedule</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name2"/>
+                <field name="doctor_ids"/>
+                <field name="company_ids"/>
+                <field name="clinic_ids"/>
+                <field name="start_time"/>
+                <field name="end_time"/>
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="schedule_form_view" model="ir.ui.view">
+        <field name="name">doctor_schedule_form</field>
+        <field name="model">doctor.schedule</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name2"/>
+                        <field name="doctor_ids"/>
+                        <field name="company_ids"/>
+                        <field name="clinic_ids"/>
+                        <field name="start_time"/>
+                        <field name="end_time"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_doctor_schedule" model="ir.actions.act_window">
+        <field name="name">Doctor Schedule</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">doctor.schedule</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="doctor_schedule_menu"
+              name="Doctor Schedule"
+              parent="menu_doctor_root"
+              action="action_doctor_schedule"
+    />
+
+
+    <record id="clinic_tree" model="ir.ui.view">
+        <field name="name">doctor_clinic</field>
+        <field name="model">doctor.clinic</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="clinic"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="clinic_form" model="ir.ui.view">
+        <field name="name">doctor_clinic</field>
+        <field name="model">doctor.clinic</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="clinic"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_clinic" model="ir.actions.act_window">
+        <field name="name">Clinic</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">doctor.clinic</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="clinic_menu"
+              name="Clinic"
+              parent="config_menu"
+              action="action_clinic"
+    />
+
+</odoo>

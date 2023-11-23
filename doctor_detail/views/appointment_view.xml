@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="appointment_form_view" model="ir.ui.view">
+        <field name="name">appointment.form.view</field>
+        <field name="model">appointment.details</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <h1>
+                        <field name="name_id" nolabel="1"/>
+                    </h1>
+                    <group>
+                        <field name="patient_ids" widget="many2one_tags"/>
+                        <field name="age"/>
+                        <field name="doctor_ids" widget="many2one_tags"/>
+                        <field name="clinic_ids" widget="many2one_tags"/>
+                        <field name="date"/>
+                        <field name="time"/>
+                    </group>
+                    <notebook>
+                        <page string="Service" name="service">
+                            <field name="product_ids">
+                                <tree>
+                                    <field name="prdt_id"/>
+                                    <field name="product_qunty"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="appointment_tree_view" model="ir.ui.view">
+        <field name="name">appointment.tree.view</field>
+        <field name="model">appointment.details</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name_id"/>
+                <field name="patient_ids"/>
+                <field name="age"/>
+                <field name="doctor_ids"/>
+                <field name="clinic_ids"/>
+                <field name="date"/>
+                <field name="time"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="menu_appointment" model="ir.actions.act_window">
+        <field name="name">Appointment</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">appointment.details</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="appointment_menu"
+              name="Appointment"
+              action="menu_appointment"
+              sequence="13"
+    />
+
+</odoo>

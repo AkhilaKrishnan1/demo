@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+doctor_detail.access_doctor_details,access_doctor_details,doctor_detail.model_doctor_details,base.group_user,1,1,1,1
+doctor_detail.access_education_details,access_education_details,doctor_detail.model_education_details,base.group_user,1,1,1,1
+doctor_detail.access_speciality_details,access_speciality_details,doctor_detail.model_speciality_details,base.group_user,1,1,1,1
+doctor_detail.access_hospital_list,access_hospital_list,doctor_detail.model_hospital_list,base.group_user,1,1,1,1
+doctor_detail.access_doctor_schedule,access_doctor_schedule,doctor_detail.model_doctor_schedule,base.group_user,1,1,1,1
+doctor_detail.access_doctor_clinic,access_doctor_clinic,doctor_detail.model_doctor_clinic,base.group_user,1,1,1,1
+doctor_detail.access_patient_details,access_patient_details,doctor_detail.model_patient_details,base.group_user,1,1,1,1
+doctor_detail.access_appointment_details,access_appointment_details,doctor_detail.model_appointment_details,base.group_user,1,1,1,1
+doctor_detail.access_appointment_service,access_appointment_service,doctor_detail.model_appointment_service,base.group_user,1,1,1,1
+
+

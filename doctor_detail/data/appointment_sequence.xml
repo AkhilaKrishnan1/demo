@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="name_id_sequence" model="ir.sequence">
+            <field name="name">Name</field>
+            <field name="code">appointment.details.sequence</field>
+            <field name="prefix">APP00</field>
+            <field name="number_increment" eval="1"/>
+        </record>
+    </data>
+</odoo>

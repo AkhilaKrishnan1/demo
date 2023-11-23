@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="patient_form_view" model="ir.ui.view">
+        <field name="name">patient.form.view</field>
+        <field name="model">patient.details</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_appointment" type="object" class="oe_start_button" icon="fa-calendar-o">
+                            <field name="appointment_count" class="o_start_value" string="Appointments"/>
+                            <span>Appointment</span>
+                        </button>
+                    </div>
+                    <h1>
+                        <field name="code_id" nolabel="1"/>
+                    </h1>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <group>
+                        <field name="name"/>
+                        <field name="age"/>
+                        <field name="gender"/>
+                        <field name="dob"/>
+                        <field name="doctor"/>
+                    </group>
+                    <notebook>
+                        <page string="General Information" name="general information">
+                            <form>
+                                <sheet>
+                                    <group>
+                                        <field name="address" placeholder="Street..."
+                                               style="position:absolute;left:130px;width:387px;"/>
+                                        <div class="o_address_format">
+                                            <field name="street2" placeholder="Street 2..." class="o_address_street"
+                                                   style="width:487px;"/>
+                                            <field name="city" placeholder="City" class="o_address_city"
+                                                   style="width:150px;"/>
+                                            <field name="state_ids" class="o_address_state" placeholder="State"
+                                                   style="position:absolute;left:200px;width:150px;"
+                                                   options="{'no_open': True, 'no_quick_create': True}"
+                                                   context="{'country_ids': country_ids, 'default_country_ids': country_ids, 'zip': zip}"/>
+                                            <field name="zip" placeholder="ZIP" class="o_address_zip"
+                                                   style="position:absolute;left:370px;width:150px;"/>
+                                            <field name="country_ids" placeholder="Country" class="o_address_country"
+                                                   style="width:490px;"
+                                                   options='{"no_open": True, "no_create": True}'/>
+                                        </div>
+                                    </group>
+                                    <group>
+                                        <field name="marital"/>
+                                        <field name="phone"/>
+                                        <field name="email"/>
+                                    </group>
+                                </sheet>
+                            </form>
+                        </page>
+                        <page string="Clinic Information" name="clinic information">
+                            <form>
+                                <sheet>
+                                    <group>
+                                        <field name="height"/>
+                                        <field name="weight"/>
+                                        <field name="temp"/>
+                                        <field name="rbs"/>
+                                    </group>
+                                </sheet>
+                            </form>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="patient_tree_view" model="ir.ui.view">
+        <field name="name">patient_item_tree</field>
+        <field name="model">patient.details</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code_id"/>
+                <field name="name"/>
+                <field name="age"/>
+                <field name="gender"/>
+                <field name="doctor"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="patient_kanban_view" model="ir.ui.view">
+        <field name="name">patient_item_kanban</field>
+        <field name="model">patient.details</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="id"/>
+                <field name="code_id"/>
+                <field name="name"/>
+                <field name="age"/>
+                <field name="image"/>
+                <template>
+                    <t t-name="kanban-box">
+                        <div t-att-class="oe_kanban_global_click">
+                            <div class="o_kanban_image">
+                                <img alt="Avatar"
+                                     t-att-src="kanban_image('patient.details','image',record.id.raw_value)"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong class="oe_kanban_record_title">
+                                    <field name="name"/>
+                                </strong>
+                                <div class="o_kanban_tags_section"/>
+                                <ul>
+                                    <li>Code:
+                                        <field name="code_id"/>
+                                    </li>
+                                    <li>Age:
+                                        <field name="age"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </template>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="menu_patient" model="ir.actions.act_window">
+        <field name="name">Patient</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">patient.details</field>
+        <field name="view_mode">tree,kanban,form</field>
+    </record>
+
+    <menuitem id="patient_root_menu"
+              name="Patient"
+              action="menu_patient"
+              sequence="12"
+    />
+</odoo>
